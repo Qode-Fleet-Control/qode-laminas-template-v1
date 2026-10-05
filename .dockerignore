@@ -1,0 +1,14 @@
+.git
+.github
+.fleet
+.fleet-deploy.log
+vendor
+data/cache/*
+!data/cache/.gitkeep
+config/development.config.php
+config/autoload/*.local.php
+config/autoload/local.php
+.phpunit.cache
+.phpcs-cache
+.psalm-cache
+*.log
