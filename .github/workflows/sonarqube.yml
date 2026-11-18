@@ -12,10 +12,14 @@ jobs:
           fetch-depth: 0
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.4'
+          php-version: '8.3'
           coverage: xdebug
       - name: Install dependencies
-        run: composer install --no-interaction --prefer-dist
+        # composer.json caps php at ~8.1-8.3, but the committed composer.lock is
+        # already out of sync with it (locks a symfony/string that needs php>=8.4) --
+        # `composer install` can't satisfy both at once. Re-resolve within composer.json's
+        # own constraint instead of trusting the stale lock.
+        run: composer update --no-interaction --prefer-dist
       - name: Run tests with coverage
         run: vendor/bin/phpunit --coverage-clover coverage.xml
       - uses: SonarSource/sonarqube-scan-action@v5
